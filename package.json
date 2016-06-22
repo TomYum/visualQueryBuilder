@@ -1,0 +1,25 @@
+{
+  "name": "visual_query_builder",
+  "version": "0.0.1",
+  "description": "",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-js-minify": "^0.0.3",
+    "gulp-sass": "^2.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TomYum/visualQueryBuilder.git"
+  },
+  "author": "Tom.Yum.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TomYum/visualQueryBuilder/issues"
+  },
+  "homepage": "https://github.com/TomYum/visualQueryBuilder#readme"
+}
