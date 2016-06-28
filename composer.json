@@ -8,11 +8,11 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "tomyum",
+            "name": "Tom.Yum.",
             "email": "hart2005@gmail.com"
         }
     ],
     "autoload": {
-        "psr-4": {"TY\\VisualQueryBuilder": "src/"}
+        "psr-4": {"TY\\VisualQueryBuilder": "src/app"}
     }
 }
