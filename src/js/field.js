@@ -7,7 +7,7 @@ var Field = (function(){
     };
     
     Field.prototype.getFullName = function(){
-        return this.table.getTableName() + '.' + this.fieldName;
+        return this.table.getName() + '.' + this.fieldName;
     }
     return Field;
     

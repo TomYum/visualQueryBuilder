@@ -9,18 +9,24 @@ var Table = (function(){
         var tableName;
         var tableAlias;
     
+        //create field and set
         this.addField = function(fieldName){
-            var key = fields.push(new Field(fieldName,that));
-            return fields[key-1];
+            fields[fieldName] = new Field(fieldName,that);
+            return fields[fieldName];
         }
         
-        // return fields
+        // return fields list
         this.getFields = function(){
             var result = [];
             for (var i in fields){
                 result.push(fields[i]);
             }
             return result;
+        }
+        
+        // return field or false
+        this.getField = function(fieldName){
+            return fields[fieldName] ? fields[fieldName] : false;
         }
         
         // Update tableName
@@ -44,11 +50,21 @@ var Table = (function(){
         this.getTableAlias = function(){
             return tableAlias;
         }
+        
+        // Return table alias if set or table name
+        this.getName = function(){
+            return tableAlias ? tableAlias : tableName;
+        }
     };
     
     // implement EventListener
     Table.prototype = Object.create(EventListener.prototype);
     
+    Table.prototype.addFields = function(fieldsList){
+        for (var i in fieldsList){
+            this.addField(fieldsList[i]);
+        }
+    }
     
     
     return Table;

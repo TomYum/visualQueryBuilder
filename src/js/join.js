@@ -6,10 +6,13 @@ var Join = (function(){
         var val, strict = !!strict;
         for (var i in haystack ){
             val = haystack[i];
-            if ((!strict && val==needle) || (strict && val===needle)) return true;
+            if ((!strict && val==needle) || (strict && val===needle)) {
+                return true;
+            }
         }
         return false;
     }
+    
     var availableOperators = ['=','LIKE'];
     
     var Join = function(tableFrom,joinedTable,type){
@@ -44,8 +47,28 @@ var Join = (function(){
         if (!(field_a instanceof Field) && !(field_b instanceof Field)){
             throw new SyntaxError('Arguments must be an instance of Field');
         }
+        this.checkField(field_a,true);
+        this.checkField(field_b,true);
+        
         this.relation = [field_a,field_b]
     };
+    
+    Join.prototype.checkField = function(field,dropException){
+        var haystack, availableFields;
+        
+        availableFields = this.getAvailableFields();
+            
+        for (var i in availableFields){
+            haystack = availableFields[i];
+            if (in_array(field,haystack)){
+                return true;
+            }
+        }
+        if (!!dropException){
+            throw new Error('Field "' + field.fieldName +'" not found on available fieldsList');
+        } 
+        return false;
+    }
     
     Join.prototype.makeJSON = function(){
         var json,condition,record;
@@ -57,8 +80,8 @@ var Join = (function(){
         
         return {
             type: this.joinType,
-            table: this.joinedTable.getTableName(),
-            from: this.tableFrom.getTableName(),
+            table: this.joinedTable.getName(),
+            from: this.tableFrom.getName(),
             alias: this.joinedTable.getTableAlias(),
             on: condition
         }
