@@ -28,10 +28,9 @@ var Join = (function(){
     };
     
     Join.prototype.addCondition = function(field,value,operator){
-        var availableFields = this.getAvailableFields();
-        if (!in_array(field,availableFields,true)){
-            throw new SyntaxError('Field not found on available fieldsList');
-        }
+        
+        this.checkField(field,true);
+        
         if (!in_array(operator,availableOperators)){
             throw new SyntaxError('Wrong operator!');
         }

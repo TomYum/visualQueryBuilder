@@ -1,4 +1,5 @@
 //=require ./eventListener.js
+//=require ./join.js
 
 var Statement = (function(){
     
@@ -9,19 +10,20 @@ var Statement = (function(){
         this.availableTables = [];
         this.joins = [];
         
-        function getFrom(){
+        
+        this.getFrom = function(){
             return this.from;
         }
         
         // Add available table
-        function addAvailableTable(table,returnKey){
+        this.addAvailableTable = function(table,returnKey){
             var key;
             key = that.availableTables.push(table);
             return !!returnKey ? key-1 : that.availableTables[key-1];
         }
         
         // Add join statement
-        function addJoin(join){
+        this.addJoin = function(join){
             var key;    
             if (!(join instanceof Join)) return false;
             key = that.joins.push(join);
@@ -30,26 +32,43 @@ var Statement = (function(){
     };
     
     
-    Statement.prototype = Object.create(EventListener);
+    Statement.prototype = Object.create(EventListener.prototype);
     
-    Statement.prototype.generateJSON = function(){};
+    Statement.prototype.makeJSON = function(){
+        var result={};
+        result.from = this.from.getTableName();
+        result.alias = this.from.getTableAlias();
+        result.joins = this.makeJoinsJSON();
+        return result;
+    };
    
-   
-    Statement.prototype.selectFrom = function(table){
-        if (!table instanceof Table) return false;
-        this._setVar('_from',table);
+    Statement.prototype.setFrom = function(table){
+            this.from = this.addAvailableTable(table);
     }
-    
-    Statement.prototype.joinTable = function(table,condition,type){
-        var tablesCount,join;
+   
+    Statement.prototype.joinTable = function(table,relation,type){
+        var join;
         if (!table instanceof Table) return false;
         
         table = this.addAvailableTable(table);
-        join = new Join(this.getFrom(),table,type)
+        join = new Join(this.getFrom(),table,type);
+        
+        join.setRelation(relation[0],relation[1]);
         this.addJoin(join);
         this.fireEvent('update');
         this.fireEvent('join');
         return join;
+    }
+    
+    Statement.prototype.makeJoinsJSON = function(){
+        var result = [],key;
+        for (key in this.joins){
+            result.push(this.joins[key].makeJSON());
+        }
+        return result;
+    }
+    Statement.prototype.checkField = function(field){
+        
     }
     
     return Statement;

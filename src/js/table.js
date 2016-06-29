@@ -8,6 +8,7 @@ var Table = (function(){
         var fields = [];
         var tableName;
         var tableAlias;
+        var dataBase;
     
         //create field and set
         this.addField = function(fieldName){
@@ -34,6 +35,19 @@ var Table = (function(){
             tableName = name;
             that.fireEvent('update');
         }
+        // Assign dataBase
+        this.setDb = function(db){
+            if (db instanceof DataBase){
+                dataBase = db;
+                that.fireEvent('update');
+            }else{
+                throw new Error('Argument must be an instance of DataBase');
+            }
+        }
+        
+        this.getDbName = function(){
+            return dataBase.getName();
+        }
         
         // Set table alias and invoke event "update"
         this.setTableAlias = function(alias){
@@ -55,6 +69,7 @@ var Table = (function(){
         this.getName = function(){
             return tableAlias ? tableAlias : tableName;
         }
+        
     };
     
     // implement EventListener
@@ -64,8 +79,12 @@ var Table = (function(){
         for (var i in fieldsList){
             this.addField(fieldsList[i]);
         }
+        this.fireEvent('addFields');
+        this.fireEvent('update');
     }
-    
+    Table.prototype.getFullName = function(){
+            return this.getDbName() + '.' + this.getTableName();
+    }
     
     return Table;
 })();

@@ -1,36 +1,36 @@
 (function(){
+    //=require ./db.js
     //=require ./table.js
     //=require ./join.js
+    //=require ./statement.js
+    //=require ./dataProvider.js
+    //=require ./connector.js
     
     var a = new Table();
     var b = new Table();
     var c = new Table();
-    /*
+    
+    var db = new DataBase();
+    db.setName('cp_carprice');
+    
     a.listen('update',function(a,b,c,d){
-        console.log([a,b,c,d]);
-    });/**/
+        console.log(['fields:',a.getFields()]);
+    });
     
-    a.setTableName('table_a');
-    a.setTableAlias('ta');
-    b.setTableName('table_b');
-    c.setTableName('table_c');
+    db.listen('loadTables',function(a,b,c,d){
+        console.log(['tables:',db.getTables()]);
+    });
     
-    a.addField('field_a_1');
-    a.addField('field_a_2');
-    a.addField('field_a_3');
-    b.addField('field_b_1');
-    b.addField('field_b_2');
-    c.addField('field_c_1');
+   
+    var dp = new DataProvider();
+    var connector = new Connector();
+    connector.controllerUrl = './controller.php';
+    dp.setConnector(connector);
     
-    var f1 = a.getField('field_a_2');
-    var f2 = b.getField('field_b_2');
-    var f3 = c.getField('field_c_1');
-    console.log(a.getFields());
-    console.log(b.getFields());
+    //dp.getTableFields(a);
+    dp.loadTables(db);
     
-    join = new Join(a,b);
-    join.setRelation(f1,f3);
-    console.log(join.makeJSON());
+   
 
 
 }).call(this);
