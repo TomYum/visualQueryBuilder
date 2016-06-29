@@ -1,8 +1,8 @@
-//=require ./eventListener.js
-//=require ./join.js
+(function(){
+    var Table = require('./table.js'),
+        DataBase = require('./db.js'),
+        EventListener = require('./eventListener.js');
 
-var Statement = (function(){
-    
     var Statement = function(){
         
         var that = this;
@@ -70,7 +70,7 @@ var Statement = (function(){
     Statement.prototype.checkField = function(field){
         
     }
+
+    module.exports = Statement;
     
-    return Statement;
-    
-})();
+}).call(this);

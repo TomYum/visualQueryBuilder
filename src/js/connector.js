@@ -1,6 +1,6 @@
-var Connector = (function(context){
-    
-    //var $ = context.$;
+(function(context){
+    var $ = require('jQuery');
+
     var Connector = function(){
         this.controllerUrl;
         this.timeout = 2000;
@@ -23,5 +23,5 @@ var Connector = (function(context){
         }
         this.success = function(a,b,c){}
     }
-    return Connector;
-})(this);
+    module.exports = Connector;
+}).call(this);

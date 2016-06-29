@@ -1,16 +1,18 @@
 (function(){
-    //=require ./db.js
-    //=require ./table.js
-    //=require ./join.js
-    //=require ./statement.js
-    //=require ./dataProvider.js
-    //=require ./connector.js
-    
+    var Table = require('./table.js'),
+        DataBase = require('./db.js'),
+        EventListener = require('./eventListener.js'),
+        DataProvider = require('./dataProvider.js'),
+        Connector = require('./connector.js');
+
     var a = new Table();
     var b = new Table();
     var c = new Table();
     
     var db = new DataBase();
+    console.log(DataBase);
+    console.log(db);
+
     db.setName('cp_carprice');
     
     a.listen('update',function(a,b,c,d){

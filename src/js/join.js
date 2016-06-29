@@ -1,7 +1,6 @@
-//=require ./field.js
+(function(){
+    var Table = require('./table.js');
 
-var Join = (function(){
-    
     function in_array(needle,haystack,strict){
         var val, strict = !!strict;
         for (var i in haystack ){
@@ -92,7 +91,7 @@ var Join = (function(){
         fields.push(this.joinedTable.getFields());
         return fields;
     };
+
+    module.exports = Join;
     
-    return Join;
-    
-})();
+}).call(this);

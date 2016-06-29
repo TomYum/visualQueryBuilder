@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var jsMinify = require('gulp-js-minify');
 var browserify = require('gulp-browserify');
-var include = require('gulp-include');
+//var include = require('gulp-include');
 
 
 
@@ -10,7 +10,7 @@ gulp.task('default',['js','css']);
 
 gulp.task('js',function(){
     var stream = gulp.src('src/js/app.js')
-        .pipe(include())
+        .pipe(browserify())
         .pipe(gulp.dest('build/js'));
     return stream;    
 });
@@ -24,7 +24,7 @@ gulp.task('css',function(){
 
 gulp.task('js-production',function(){
     var stream = gulp.src('src/js/app.js')
-        .pipe(include())
+        .pipe(browserify())
         .pipe(jsMinify())
         .pipe(gulp.dest('build/js/app.min.js'));
 });

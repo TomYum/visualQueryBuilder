@@ -8,14 +8,10 @@
     "gulp": "^3.9.1",
     "gulp-browserify": "^0.5.1",
     "gulp-js-minify": "^0.0.3",
-    "gulp-sass": "^2.3.2",
-    "react": "^15.1.0",
-    "react-redux": "^4.4.5",
-    "redux": "^3.5.2"
+    "gulp-sass": "^2.3.2"
   },
   "devDependencies": {
-    "gulp-watch": "^4.3.8",
-    "redux-devtools": "^3.3.1"
+    "gulp-watch": "^4.3.8"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
