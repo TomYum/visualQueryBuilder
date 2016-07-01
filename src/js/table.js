@@ -1,4 +1,4 @@
-return (function () {
+(function () {
     var EventListener = require('./eventListener.js'),
         DataBase = require('./db.js'),
         Field = require('./field.js');

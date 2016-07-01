@@ -1,0 +1,105 @@
+var gulp = require('gulp');
+var sass = require('gulp-sass');
+var jsMinify = require('gulp-js-minify');
+var browserify = require('gulp-browserify');
+var babel = require("gulp-babel");
+var babelify = require("babelify");
+var npmBrowserify = require('browserify');
+var buffer = require('vinyl-buffer');
+var source = require('vinyl-source-stream');
+//var reactify = require('gulp-reactify')({ reactTools: require('reactTools')});
+var react = require('gulp-react');
+var gutil = require('gulp-util');
+
+gulp.task('default', ['js', 'css']);
+
+gulp.task('browserify', function () {
+
+    var browserified = transform(function (filename) {
+        var b = browserify(filename, {
+            insertGlobals: true,
+            extensions: ['.jsx']
+        });
+        b.transform(reactify);
+        return b.bundle();
+    });
+
+    return gulp.src('./src/javascripts/app.jsx')
+        .pipe(browserified)
+        .pipe(rename('app.js')) // rename it or else the result file would be `app.jsx`
+        .pipe(gulp.dest('./build/javascripts'));
+});
+
+
+gulp.task('jsx',function(){
+
+    return npmBrowserify({
+        entries: './src/jss/app.js',
+        extensions: ['.jsx'],
+        debug: true
+    })
+    .transform('babelify',{
+        presets: ['es2015', 'react'],
+        plugins: ['transform-class-properties']
+    })
+    .bundle()
+        .on('error', function(err){
+            gutil.log(gutil.colors.red.bold('[browserify error]'));
+            gutil.log(err.message);
+            this.emit('end');
+        })
+        .pipe(source('bundle.js'))
+        .pipe(gulp.dest('dist'));
+/*
+   return gulp.src('src/js/view/**.jsx')
+            .pipe(babel())
+            .pipe(gulp.dest('build/jsx'));
+            /**/
+});
+
+gulp.task('js', function () {
+
+    var browserified = transform(function (filename) {
+        var b = browserify(filename, {
+            insertGlobals: true,
+            extensions: ['.jsx']
+        });
+        b.transform(reactify);
+        return b.bundle();
+    });
+
+    var stream = gulp.src('src/js/app.js')
+        .pipe(browserified())
+        /*
+        .pipe(browserify({
+            transform: '',
+            insertGlobals: true,
+            extensions: ['.jsx']
+        }))/**/
+        .pipe(browserify({extensions: ['.js','.json']}))
+        .pipe(gulp.dest('build/js'));
+    return stream;
+});
+
+gulp.task('css', function () {
+
+    var stream = gulp.src('src/scss/**/*.scss')
+
+        .pipe(sass())
+        .pipe(gulp.dest('build/css'));
+    return stream;
+});
+
+gulp.task('js-production', function () {
+    var stream = gulp.src('src/js/app.js')
+        .pipe(babel())
+        .pipe(browserify())
+        .pipe(babel())
+        .pipe(jsMinify())
+        .pipe(gulp.dest('build/js/app.min.js'));
+});
+
+gulp.task('watch-dev', function () {
+
+    gulp.watch('src/js/**/*.js', ['js']);
+})

@@ -14,6 +14,11 @@ class Builder
         $this->dbal_connection = $dbal_connection;
     }
 
+    private function getConnection($db_name = null)
+    {
+        return $this->dbal_connection;
+    }
+
 
     public function getDatabases()
     {
