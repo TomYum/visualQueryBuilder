@@ -1,7 +1,14 @@
 'use strict';
 
 export  default class DataProvider {
-    constructor(connector){
-        this.connector = connection;
+    constructor(opt){
+        this.action
     }
+
+    loadFields
+
+    request(){
+
+    }
+
 }

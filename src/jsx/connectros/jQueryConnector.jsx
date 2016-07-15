@@ -1,5 +1,5 @@
 'use strict';
-import Connector from '../connector.jsx';
+import Connector from '../Connector.jsx';
 
 export default class jQueryConnector extends Connector{
     constructor({jQuery,path,options}){
@@ -11,11 +11,11 @@ export default class jQueryConnector extends Connector{
         this.jQuery.ajax({
             data: data,
             dataType: 'json',
-            error: this.error,
+            error: (a,b,c)=>console.log(`error ${a} ${b} ${c}`),
             method: 'POST',
             success: success ? success : this.success,
             timeout: this.timeout,
-            url: this.controllerUrl
+            url: this.path
         });
     }
 }

@@ -5,12 +5,57 @@
   border-radius: $radius;
 }
 
+.vqb-db{
+  @include border-radius(.125em);
+  padding: 0.5em;
+  border: 0.125em solid #ffc520;
+
+  .tables{
+    display: none;
+  }
+
+  &.table-collapsed{
+    .tables{
+      display: inline-block;
+    }
+  }
+}
+
+
 .vqb-table {
 
   @include border-radius(.125em);
 
+  border: 0.125em cadetblue solid;
+  font-size: 1rem;
+  margin: 1em;
+  padding: 1em;
+
+  min-width: 10em;
+  max-width: 30em;
+
   .title {
-    font-size: .65em;
+    font-size: .85em;
+    font-weight: bold;
+    color: teal;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 0.25em;
+  }
+}
+  .vqb-fields-list{
+    display: inline-block;
+    width: 100%;
   }
 
-}
+  .vqb-table-field{
+    display: inline-block;
+    margin: 0.5em 0.075em;
+    width: 100%;
+    padding: 0.075em;
+    box-sizing: border-box;
+    &:hover{
+      border: 0.125em dotted #ffc520;
+    }
+  }
+

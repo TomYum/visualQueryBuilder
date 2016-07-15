@@ -5,6 +5,9 @@ import gutil from 'gulp-util';
 import browserify from 'browserify';
 import babelify from 'babelify';
 import source from 'vinyl-source-stream';
+import sass from 'gulp-sass';
+
+const sassOpts = { outputStyle: 'compressed', errLogToConsole: true };
 
 gulp.task('build', () => {
     return browserify({
@@ -26,8 +29,15 @@ gulp.task('build', () => {
         .pipe(gulp.dest('build/js'));
 });
 
-gulp.task('watch', ['build'], () => {
+gulp.task('scss',()=>{
+    return gulp.src('src/scss/**/*.scss')
+            .pipe(sass(sassOpts))
+            .pipe(gulp.dest('build/css'));
+});
+
+gulp.task('watch', ['build','scss'], () => {
     gulp.watch('./src/jsx/**/*.jsx', ['build']);
+    gulp.watch('./src/scss/**/*.scss', ['scss']);
 });
 
 gulp.task('default', ['watch']);
