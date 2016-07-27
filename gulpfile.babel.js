@@ -37,7 +37,7 @@ gulp.task('scss',()=>{
 
 gulp.task('watch', ['build','scss'], () => {
     gulp.watch('./src/jsx/**/*.jsx', ['build']);
-    gulp.watch('./src/scss/**/*.scss', ['scss']);
+    gulp.watch('./src/scss/app.scss', ['scss']);
 });
 
 gulp.task('default', ['watch']);

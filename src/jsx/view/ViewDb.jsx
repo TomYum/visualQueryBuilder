@@ -73,7 +73,7 @@ export default class ViewDatabase extends Component{
         }
 
         let tableClass = new ClassNames({
-            'vqb-table': true,
+            'vqb-tables': true,
             'table-collapsed': this.state.isCollapsed,
         });
 
@@ -82,7 +82,12 @@ export default class ViewDatabase extends Component{
             <div className="vqb-db">
                 <div className="title" onDoubleClick={this.toggleTables}>{title} {title_raw}</div>
                 <div className={tableClass}>
-                    adsasdasd
+                    <div className="vqb-table">
+                        <span className="title">FFFG</span>
+                        <div className="vqb-fields-list">
+
+                        </div>
+                    </div>
                 </div>
             </div>
         );

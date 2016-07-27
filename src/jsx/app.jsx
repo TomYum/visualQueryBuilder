@@ -23,6 +23,19 @@ var db_view = view.createDbView(db);
 let db = new Database('cp_carprice_stat');
 let table = new Table(db,'table','TABLE_ALIAS');
 
+let getMirror = (a,b)=>{
+    let period, alen,blen;
+    alen = a.toString().length;
+    blen = b.toString().length;
+    period = alen > blen ? alen : blen;
+    let mid = Math.floor(period/2);
+    let bid = Math.ceil(period/2);
+
+    for (let num = a; num++; num <= b ){
+        let
+    }
+}
+
 let fields = [
     new Field(table,'field#1','A1'),
     new Field(table,'field#2'),

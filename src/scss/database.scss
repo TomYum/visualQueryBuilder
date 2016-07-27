@@ -1,0 +1,13 @@
+@import "mixins";
+
+.vqb-db{
+  @include border-radius(.125em);
+  padding: 0.5em;
+  border: 0.125em solid #ffc520;
+
+
+  .table-collapsed{
+    display: none;
+  }
+
+}
